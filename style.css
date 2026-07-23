@@ -70,10 +70,22 @@ nav {
 .btn-light:hover { background: var(--sand); }
 
 /* Hero */
-.hero { position: relative; overflow: hidden; padding: 110px 0 130px; }
+.hero {
+  position: relative; overflow: hidden; padding: 130px 0 150px;
+  background:
+    linear-gradient(100deg, rgba(16, 24, 19, 0.78) 0%, rgba(16, 24, 19, 0.45) 52%, rgba(16, 24, 19, 0.18) 100%),
+    url("img/hero-scramble.jpg") center 35% / cover no-repeat;
+  color: #fff;
+}
+.hero .kicker { color: #c8dbb9; }
+.hero h1 { text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35); }
 .hero-inner { position: relative; max-width: 720px; margin: 0 auto 0 max(24px, calc((100% - 1060px) / 2)); }
-.lede { font-size: 1.13rem; color: var(--ink-soft); margin: 1.4em 0 2em; max-width: 56ch; }
+.lede { font-size: 1.13rem; color: rgba(255, 255, 255, 0.88); margin: 1.4em 0 2em; max-width: 56ch; }
 .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero .btn { background: var(--paper); color: var(--pine-deep); }
+.hero .btn:hover { background: var(--sand); }
+.hero .btn-ghost { background: rgba(16, 24, 19, 0.25); color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.75); }
+.hero .btn-ghost:hover { background: rgba(16, 24, 19, 0.45); }
 
 /* Topo background */
 .topo {
@@ -96,8 +108,10 @@ section { padding: 90px 0; }
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px; }
 .card {
   background: #fff; border: 1px solid var(--line); border-radius: 12px;
-  padding: 28px 26px;
+  overflow: hidden;
 }
+.card img { width: 100%; height: 200px; object-fit: cover; display: block; }
+.card-body { padding: 24px 26px 28px; }
 .card p { color: var(--ink-soft); font-size: 0.96rem; }
 
 .split { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; }
@@ -115,6 +129,15 @@ section { padding: 90px 0; }
 }
 .checks strong { color: var(--ink); }
 
+/* About & gallery photos */
+.about-grid { align-items: center; }
+.about-grid figure img { width: 100%; border-radius: 14px; display: block; }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
+.gallery-grid img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  border-radius: 12px; display: block;
+}
+
 /* Contact */
 .contact { position: relative; background: var(--pine-deep); color: var(--paper); text-align: center; overflow: hidden; }
 .contact .topo { opacity: 0.12; filter: invert(1); }
@@ -129,6 +152,7 @@ footer { background: var(--pine-deep); color: rgba(247, 244, 236, 0.6); border-t
   .stats { grid-template-columns: repeat(2, 1fr); }
   .cards { grid-template-columns: 1fr; }
   .split { grid-template-columns: 1fr; gap: 24px; }
-  .hero { padding: 70px 0 90px; }
+  .hero { padding: 90px 0 110px; }
   section { padding: 64px 0; }
+  .gallery-grid { grid-template-columns: 1fr; }
 }
