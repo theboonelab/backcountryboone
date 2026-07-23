@@ -110,6 +110,8 @@
         <img src="img/gal-canyon.jpg" alt="Backpackers walking a sandy canyon floor between sandstone cliffs" loading="lazy">
         <img src="img/card-canoes.jpg" alt="Loaded canoes crossing a wilderness lake" loading="lazy">
         <img src="img/card-crew.jpg" alt="A trip crew shouldering packs at the trailhead" loading="lazy">
+        <img src="img/gal-bigwall.jpg" alt="Boone below sheer canyon walls" loading="lazy">
+        <img src="img/gal-desert.jpg" alt="Boone grinning in red rock desert country" loading="lazy">
       </div>
       <button class="slide-btn prev" aria-label="Previous photo">&#8249;</button>
       <button class="slide-btn next" aria-label="Next photo">&#8250;</button>
@@ -136,15 +138,23 @@
 
 <script>
 (function () {
+  var slider = document.querySelector('.slider');
   var slides = document.getElementById('slides');
   var dots = document.getElementById('dots');
   var imgs = slides.querySelectorAll('img');
+  var hovering = false;
+  var autoOn = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var autoScrolling = false;
+
+  function goTo(i, smooth) {
+    autoScrolling = true;
+    slides.scrollTo({ left: i * slides.clientWidth, behavior: smooth === false ? 'auto' : 'smooth' });
+    setTimeout(function () { autoScrolling = false; }, 600);
+  }
   imgs.forEach(function (_, i) {
     var d = document.createElement('button');
     d.setAttribute('aria-label', 'Go to photo ' + (i + 1));
-    d.addEventListener('click', function () {
-      slides.scrollTo({ left: i * slides.clientWidth, behavior: 'smooth' });
-    });
+    d.addEventListener('click', function () { stopAuto(); goTo(i); });
     dots.appendChild(d);
   });
   function current() { return Math.round(slides.scrollLeft / slides.clientWidth); }
@@ -154,12 +164,19 @@
     });
   }
   slides.addEventListener('scroll', function () { requestAnimationFrame(paint); });
-  function step(dir) {
-    var n = (current() + dir + imgs.length) % imgs.length;
-    slides.scrollTo({ left: n * slides.clientWidth, behavior: 'smooth' });
-  }
-  document.querySelector('.slide-btn.prev').addEventListener('click', function () { step(-1); });
-  document.querySelector('.slide-btn.next').addEventListener('click', function () { step(1); });
+  function step(dir) { goTo((current() + dir + imgs.length) % imgs.length); }
+  document.querySelector('.slide-btn.prev').addEventListener('click', function () { stopAuto(); step(-1); });
+  document.querySelector('.slide-btn.next').addEventListener('click', function () { stopAuto(); step(1); });
+
+  // Auto-cycle: pause while hovered, stop for good once the user takes control
+  function stopAuto() { autoOn = false; }
+  slider.addEventListener('mouseenter', function () { hovering = true; });
+  slider.addEventListener('mouseleave', function () { hovering = false; });
+  slides.addEventListener('touchstart', stopAuto, { passive: true });
+  slides.addEventListener('wheel', stopAuto, { passive: true });
+  setInterval(function () {
+    if (autoOn && !hovering && !autoScrolling && document.visibilityState === 'visible') step(1);
+  }, 4500);
   paint();
 })();
 </script>
