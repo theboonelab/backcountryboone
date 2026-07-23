@@ -74,7 +74,7 @@ nav {
   position: relative; overflow: hidden; padding: 130px 0 150px;
   background:
     linear-gradient(100deg, rgba(16, 24, 19, 0.78) 0%, rgba(16, 24, 19, 0.45) 52%, rgba(16, 24, 19, 0.18) 100%),
-    url("img/hero-scramble.jpg") center 35% / cover no-repeat;
+    url("img/hero-scramble.jpg") center 45% / cover no-repeat;
   color: #fff;
 }
 .hero .kicker { color: #c8dbb9; }
@@ -151,6 +151,7 @@ section { padding: 90px 0; }
   object-fit: cover; scroll-snap-align: center; scroll-snap-stop: always;
 }
 .slides img.pos-top { object-position: center top; }
+.slides img.pos-bottom { object-position: center bottom; }
 .slide-btn {
   position: absolute; top: 50%; transform: translateY(-50%);
   width: 40px; height: 40px; border-radius: 50%; border: none;
